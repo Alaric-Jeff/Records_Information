@@ -38,7 +38,7 @@ impl ActiveModelBehavior for ActiveModel {
         }
     }
 
-    fn before_save<C>(mut self, _: &C, insert: bool) -> Result<Self, DbErr>
+    async fn before_save<C>(mut self, _: &C, insert: bool) -> Result<Self, DbErr>
     where
         C: ConnectionTrait,
     {
