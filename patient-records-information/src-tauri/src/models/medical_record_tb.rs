@@ -7,7 +7,12 @@ use sea_orm::ActiveValue::Set;
 pub struct Model {
     #[sea_orm(primary_key)]
     pub medical_id: i32,
-    #[sea_orm(foreign_key = "patients_table" //I think name of the table?) also is this indexed by default for joins?]
+    #[sea_orm(
+        foreign_key = "crate::patients::Entity",
+        on_delete = "Cascade",
+        on_update = "Cascade",
+        indexed
+    )]
     pub patient_id: i32,
     pub assessment: Option<String>,
     pub diagnosis: Option<String>,
@@ -16,6 +21,3 @@ pub struct Model {
     pub created_at: DateTimeUtc,
     pub updated_at: DateTimeUtc,
 }
-
-
-#[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
