@@ -2,7 +2,7 @@ use actix_web::{dev::ServiceRequest, Error, Result};
 use actix_web::dev::ServiceResponse;
 use actix_web::middleware::Logger;
 use actix_web::web::Data;
-use actix_web::HttpMessage;
+// use actix_web::HttpMessage; // not needed currently
 use crate::server::state::AppState;
 use std::time::Instant;
 
@@ -14,8 +14,8 @@ pub fn setup_middleware() -> Logger {
 /// Middleware to check cloud database availability
 pub async fn cloud_availability_checker(
     req: ServiceRequest,
-    next: actix_web::middleware::Next<impl actix_web::body::MessageBody>,
-) -> Result<ServiceResponse<impl actix_web::body::MessageBody>, Error> {
+    next: actix_web::middleware::Next<actix_web::body::BoxBody>,
+) -> Result<ServiceResponse, Error> {
     let start = Instant::now();
     
     // Check if this is a cloud-dependent operation
@@ -45,6 +45,6 @@ pub async fn cloud_availability_checker(
         log::warn!("Slow request: {}ms for {}", duration.as_millis(), res.request().path());
     }
     
-    Ok(res)
+    Ok(res.map_into_boxed_body())
 }
 

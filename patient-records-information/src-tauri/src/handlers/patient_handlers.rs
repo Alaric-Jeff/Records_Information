@@ -2,7 +2,7 @@ use sea_orm::{DatabaseConnection, EntityTrait, Set, ActiveModelTrait};
 use crate::models::patient_tb::{Entity as PatientEntity, Model as PatientModel, ActiveModel as PatientActiveModel};
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreatePatientRequest {
     pub first_name: String,
     pub last_name: String,
@@ -13,7 +13,7 @@ pub struct CreatePatientRequest {
     pub residential_address: Option<String>,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct UpdatePatientRequest {
     pub first_name: Option<String>,
     pub last_name: Option<String>,

@@ -1,4 +1,4 @@
-use actix_web::{web, HttpResponse, Result, HttpRequest};
+use actix_web::{web, HttpResponse, Result};
 use serde_json::json;
 use crate::server::state::AppState;
 use crate::handlers::{
@@ -38,11 +38,12 @@ pub async fn create_patient_handler(
 ) -> Result<HttpResponse> {
     let db = state.get_local_db().await;
     
-    match create_patient(&db, req.into_inner()).await {
+    let create_req = req.into_inner();
+    match create_patient(&db, create_req.clone()).await {
         Ok(patient) => {
             // If cloud is available, also sync to cloud
             if let Some(cloud_db) = state.get_cloud_db().await {
-                let _ = create_patient(&cloud_db, req.into_inner()).await;
+                let _ = create_patient(&cloud_db, create_req).await;
             }
             
             Ok(HttpResponse::Created().json(patient))
@@ -95,11 +96,12 @@ pub async fn update_patient_handler(
     let patient_id = path.into_inner();
     let db = state.get_local_db().await;
     
-    match update_patient(&db, patient_id, req.into_inner()).await {
+    let update_req = req.into_inner();
+    match update_patient(&db, patient_id, update_req.clone()).await {
         Ok(Some(patient)) => {
             // If cloud is available, also sync to cloud
             if let Some(cloud_db) = state.get_cloud_db().await {
-                let _ = update_patient(&cloud_db, patient_id, req.into_inner()).await;
+                let _ = update_patient(&cloud_db, patient_id, update_req).await;
             }
             
             Ok(HttpResponse::Ok().json(patient))
@@ -159,21 +161,21 @@ pub async fn sync_to_cloud_handler(
             let mut synced_count = 0;
             let mut errors = Vec::new();
             
-            for patient in patients {
+            for patient in &patients {
                 // Try to sync each patient to cloud
                 let create_request = CreatePatientRequest {
-                    first_name: patient.first_name,
-                    last_name: patient.last_name,
-                    middle_name: patient.middle_name,
+                    first_name: patient.first_name.clone(),
+                    last_name: patient.last_name.clone(),
+                    middle_name: patient.middle_name.clone(),
                     birth_date: patient.birth_date,
-                    csd_id_or_pwd_id: patient.csd_id_or_pwd_id,
-                    mobile_number: patient.mobile_number,
-                    residential_address: patient.residential_address,
+                    csd_id_or_pwd_id: patient.csd_id_or_pwd_id.clone(),
+                    mobile_number: patient.mobile_number.clone(),
+                    residential_address: patient.residential_address.clone(),
                 };
                 
                 match create_patient(&cloud_db, create_request).await {
                     Ok(_) => synced_count += 1,
-                    Err(e) => errors.push(format!("Failed to sync patient {}: {}", patient.id, e)),
+                    Err(e) => errors.push(format!("Failed to sync patient {}: {}", patient.patient_id, e)),
                 }
             }
             

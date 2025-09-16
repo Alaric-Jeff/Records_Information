@@ -1,7 +1,7 @@
 use sea_orm::DatabaseConnection;
 use std::sync::Arc;
 use tokio::sync::RwLock;
-use crate::database::DbConnections;
+use crate::database::connection::DbConnections;
 
 #[derive(Clone)]
 pub struct AppState {
