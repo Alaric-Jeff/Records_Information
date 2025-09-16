@@ -3,6 +3,7 @@ pub mod database;
 pub mod handlers;
 pub mod migrations;
 pub mod models;
+pub mod server;
 
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 #[tauri::command]

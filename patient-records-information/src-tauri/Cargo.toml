@@ -46,3 +46,10 @@ async-trait = "0.1"
 # CLI for migrations
 clap = { version = "4", features = ["derive"] }
 
+# Logging
+log = "0.4"
+env_logger = "0.10"
+
+# CPU detection for worker threads
+num_cpus = "1.0"
+
