@@ -1,6 +1,6 @@
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
-
+use uuid::Uuid;
 /// Enum representing the payment status for a medical bill record.
 #[derive(Debug, Clone, PartialEq, DeriveActiveEnum, EnumIter, Serialize, Deserialize)]
 #[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "payment_status_enum")]
@@ -22,7 +22,7 @@ pub enum PaymentStatus {
 pub struct Model {
     /// Unique identifier for the medical bill record.
     #[sea_orm(primary_key)]
-    pub medical_bill_id: i32,
+    pub medical_bill_id: Uuid,
     /// Foreign key to the patient.
     #[sea_orm(foreign_key = "patients_table")]
     pub patient_id: i32,

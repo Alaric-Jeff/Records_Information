@@ -1,5 +1,6 @@
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
+use uuid::Uuid;
 
 #[derive(Debug, Clone, PartialEq, Eq, DeriveActiveEnum, EnumIter, Serialize, Deserialize)]
 #[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "service_category")]
@@ -14,7 +15,7 @@ pub enum ServiceCategory {
 #[sea_orm(table_name = "medical_services_table")]
 pub struct Model {
     #[sea_orm(primary_key)]
-    pub ms_id: i32,
+    pub ms_id: Uuid,
     pub ms_name: String,
     pub ms_category: ServiceCategory,
     pub ms_price: f32

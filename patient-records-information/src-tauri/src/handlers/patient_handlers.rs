@@ -1,6 +1,7 @@
 use sea_orm::{DatabaseConnection, EntityTrait, Set, ActiveModelTrait};
 use crate::models::patient_tb::{Entity as PatientEntity, Model as PatientModel, ActiveModel as PatientActiveModel};
 use serde::{Deserialize, Serialize};
+use uuid::Uuid;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct CreatePatientRequest {
@@ -44,7 +45,7 @@ pub async fn create_patient(
 
 pub async fn get_patient(
     db: &DatabaseConnection,
-    patient_id: i32,
+    patient_id: Uuid,
 ) -> Result<Option<PatientModel>, sea_orm::DbErr> {
     PatientEntity::find_by_id(patient_id).one(db).await
 }
@@ -57,7 +58,7 @@ pub async fn get_all_patients(
 
 pub async fn update_patient(
     db: &DatabaseConnection,
-    patient_id: i32,
+    patient_id: Uuid,
     request: UpdatePatientRequest,
 ) -> Result<Option<PatientModel>, sea_orm::DbErr> {
     let patient = PatientEntity::find_by_id(patient_id).one(db).await?;
@@ -96,7 +97,7 @@ pub async fn update_patient(
 
 pub async fn delete_patient(
     db: &DatabaseConnection,
-    patient_id: i32,
+    patient_id: Uuid,
 ) -> Result<bool, sea_orm::DbErr> {
     let result = PatientEntity::delete_by_id(patient_id).exec(db).await?;
     Ok(result.rows_affected > 0)

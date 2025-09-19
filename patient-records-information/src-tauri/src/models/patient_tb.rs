@@ -1,13 +1,14 @@
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 use sea_orm::ActiveValue::Set;
+use  uuid::Uuid;
 
 //patients model, but also a derived entity because of DeriveEntityModel macro
 #[derive(Debug, Clone, PartialEq, Eq, DeriveEntityModel, Serialize, Deserialize)]
 #[sea_orm(table_name = "patients_table")]
 pub struct Model {
     #[sea_orm(primary_key)]
-    pub patient_id: i32,
+    pub patient_id: Uuid,
     pub first_name: String,
     #[sea_orm(indexed)]
     pub last_name: String,

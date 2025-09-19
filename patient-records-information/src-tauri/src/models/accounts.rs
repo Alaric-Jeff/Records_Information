@@ -1,6 +1,6 @@
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
-use sea_orm::ActiveValue::Set;
+use uuid::Uuid;
 
 #[derive(Debug, Clone, PartialEq, Eq, DeriveActiveEnum, EnumIter, Serialize, Deserialize)]
 #[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "role_enum")]
@@ -15,7 +15,10 @@ pub enum Role {
 #[sea_orm(table_name = "accounts_table")]
 pub struct Model {
     #[sea_orm(primary_key)]
-    pub account_id: i32,
+    pub account_id: Uuid,
+    pub first_name: String,
+    pub last_name: String,
+    pub middle_name: String,
     pub role: Role,
     pub email: String,
     pub username: String,

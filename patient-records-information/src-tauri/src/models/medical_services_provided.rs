@@ -1,6 +1,6 @@
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
-
+use uuid::Uuid;
 /// Represents a record of a medical service provided, linked to a bill and a service.
 /// 
 /// # Fixes Applied
@@ -11,7 +11,7 @@ use serde::{Deserialize, Serialize};
 pub struct Model {
     /// Unique identifier for the medical service provided (Primary Key).
     #[sea_orm(primary_key)]
-    pub mrs_id: i32,
+    pub mrs_id: Uuid,
     /// Foreign key referencing the medical bill record.
     #[sea_orm(foreign_key)]
     pub medical_bill_id: i32,
