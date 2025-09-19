@@ -1,24 +1,22 @@
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
-use sea_orm::ActiveValue::Set;
 
-
-#[derive(Debug, Clone, PartialEq, DeriveActiveEnum)]
+#[derive(Debug, Clone, PartialEq, Eq, DeriveActiveEnum, EnumIter, Serialize, Deserialize)]
 #[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "service_category")]
-pub enum Service_Category {
+pub enum ServiceCategory {
     #[sea_orm(string_value = "Laboratory")]
     Laboratory,
     #[sea_orm(string_value = "Vaccine")]
     Vaccine,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, DeriveEntityModel, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, DeriveEntityModel, Serialize, Deserialize)]
 #[sea_orm(table_name = "medical_services_table")]
 pub struct Model {
     #[sea_orm(primary_key)]
     pub ms_id: i32,
     pub ms_name: String,
-    pub ms_category: Service_Category,
+    pub ms_category: ServiceCategory,
     pub ms_price: f32
 }
 
@@ -28,6 +26,4 @@ pub enum Relation {
 }
 
 #[async_trait::async_trait]
-impl ActiveModelBehavior for ActiveModel {
-
-}
+impl ActiveModelBehavior for ActiveModel {}

@@ -35,6 +35,9 @@ sea-orm-migration = { version = "1.1.15", features = ["sqlx-postgres", "sqlx-sql
 # SQLx (database drivers, same runtime as SeaORM)
 sqlx = { version = "0.8.6", features = ["runtime-tokio-native-tls", "postgres", "sqlite"] }
 
+#uuid crate
+uuid = "1.18.1"
+
 # Chrono for date/time handling
 chrono = { version = "0.4", features = ["serde"] }
 
