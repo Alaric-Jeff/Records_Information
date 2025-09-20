@@ -18,6 +18,8 @@ pub struct Model {
     pub diagnosis: Option<String>,
     pub treatment: Option<String>,
     pub prescription: Option<String>,
+    pub first_audited_by: String,
+    pub last_audited_by: Option<String>,
     pub created_at: DateTimeUtc,
     pub updated_at: DateTimeUtc,
 }
