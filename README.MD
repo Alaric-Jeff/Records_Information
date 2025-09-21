@@ -88,7 +88,7 @@ If you already have the project from GitHub, you don’t need to create a new Ta
 
 1. Clone the repository:
    ```bash
-   git clone <your-repo-url>.git
+   git clone https://github.com/Alaric-Jeff/Records_Information.git
    ```
 
 2. Navigate into the project:
