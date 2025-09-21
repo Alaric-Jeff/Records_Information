@@ -21,10 +21,17 @@ impl MigrationTrait for Migration {
                     .col(ColumnDef::new(PatientsTable::FirstName).string().not_null())
                     .col(ColumnDef::new(PatientsTable::LastName).string().not_null())
                     .col(ColumnDef::new(PatientsTable::MiddleName).string().null())
+                    .col(ColumnDef::new(PatientsTable::Age).integer().not_null())
                     .col(ColumnDef::new(PatientsTable::BirthDate).date().not_null())
                     .col(ColumnDef::new(PatientsTable::CsdIdOrPwdId).string().null())
                     .col(ColumnDef::new(PatientsTable::MobileNumber).string().null())
                     .col(ColumnDef::new(PatientsTable::ResidentialAddress).string().null())
+                    .col(
+                        ColumnDef::new(PatientsTable::IsArchived)
+                            .boolean()
+                            .not_null()
+                            .default(false),
+                    )
                     .col(
                         ColumnDef::new(PatientsTable::CreatedAt)
                             .timestamp_with_time_zone()
@@ -56,10 +63,12 @@ enum PatientsTable {
     FirstName,
     LastName,
     MiddleName,
+    Age,
     BirthDate,
     CsdIdOrPwdId,
     MobileNumber,
     ResidentialAddress,
+    IsArchived,
     CreatedAt,
     UpdatedAt,
 }

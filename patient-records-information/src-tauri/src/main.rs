@@ -2,6 +2,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 use std::env;
+mod tests;
 
 fn main() {
     // Check if we should start the server instead of the Tauri app
