@@ -88,7 +88,7 @@ pub async fn update_patient(
             patient.residential_address = Set(Some(residential_address));
         }
 
-        let updated_patient = patient.update(db).await?;
+        let updated_patient: PatientModel = patient.update(db).await?;
         Ok(Some(updated_patient))
     } else {
         Ok(None)

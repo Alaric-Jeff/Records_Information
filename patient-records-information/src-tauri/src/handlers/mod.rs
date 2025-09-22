@@ -8,3 +8,5 @@ pub use patient_handlers::{
     update_patient,
     delete_patient,
 };
+
+pub mod medical_services_handler;

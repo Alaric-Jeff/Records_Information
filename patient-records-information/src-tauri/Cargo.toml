@@ -38,7 +38,7 @@ ctor = "0.1"
 sqlx = { version = "0.8.6", features = ["runtime-tokio-native-tls", "postgres", "sqlite"] }
 
 #uuid crate
-uuid = "1.18.1"
+uuid = { version = "1.18.1", features = ["v4", "serde"] }
 
 # Chrono for date/time handling
 chrono = { version = "0.4", features = ["serde"] }

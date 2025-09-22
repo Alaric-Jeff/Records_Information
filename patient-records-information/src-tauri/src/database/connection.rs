@@ -11,7 +11,7 @@ pub struct DbConnections {
 pub async fn create_connections() -> Result<DbConnections, DbErr> {
     // Local database (always required)
     let local_url = env::var("DATABASE_URL_LOCAL")
-        .unwrap_or_else(|_| "postgres://postgres:Aspiras123@localhost/leonardo_medical_services".to_string());
+        .unwrap_or_else(|_| "postgres://alaricaspiras:20230881@localhost/patient_record_db".to_string());
 
     let mut local_opt = ConnectOptions::new(local_url);
     local_opt.max_connections(20)

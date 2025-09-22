@@ -1,48 +1,12 @@
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
+use crate::models::medical_services::ServiceCategory;
 /// Represents a record of a medical service provided, linked to a bill and a service.
 /// 
 /// 
 /// 
 /// 
-
-#[derive(Debug, Clone, PartialEq, Eq, DeriveActiveEnum, EnumIter, Serialize, Deserialize)]
-#[sea_orm(rs_type = "String", db_type = "Enum", enum_name = "role_enum")]
-pub enum AvailableServices {
-    #[sea_orm(string_value = "Hematology")]
-    Hematology,
-    #[sea_orm(string_value = "Bacteriology")]
-    Bacteriology,
-    #[sea_orm(string_value = "Clinical Microscopy")]
-    ClinicalMicroscopy,
-    #[sea_orm(string_value = "24 Hour Urine Test")]
-    TwentyFourHourUrineTest,
-    #[sea_orm(string_value = "Serology and Immunology")]
-    SerologyAndImmunology,
-    #[sea_orm(string_value = "Clinical Chemistry")]
-    ClinicalChemistry,
-    #[sea_orm(string_value = "Electrolytes")]
-    Electrolytes,
-    #[sea_orm(string_value = "Vaccine")]
-    Vaccine,
-    #[sea_orm(string_value = "Hispatology")]
-    Hispatology,
-    #[sea_orm(string_value = "To be read by pathologist")]
-    ToBeReadByPathologist,
-    #[sea_orm(string_value = "Tumor Markers")]
-    TumorMarkers,
-    #[sea_orm(string_value = "Thyroid Function test")]
-    ThyroidFunctionTest,
-    #[sea_orm(string_value = "Hormones")]
-    Hormones,
-    #[sea_orm(string_value = "Hepatitis")]
-    Hepatitis,
-    #[sea_orm(string_value = "Enzymes")]
-    Enzymes,
-    #[sea_orm(string_value = "Others")]
-    Others,
-}
 
 
 /// # Fixes Applied
@@ -63,7 +27,7 @@ pub struct Model {
     /// Name of the service provided.
     pub service_name: String,
     /// Category of the service provided.
-    pub service_category: AvailableServices,
+    pub service_category: ServiceCategory,
     /// Price of the service provided.
     pub price: f32,
 }
