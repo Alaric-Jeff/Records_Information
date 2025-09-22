@@ -75,3 +75,9 @@ pub async fn get_all_service(
 ) -> Result<Vec<ServiceModel>, sea_orm::DbErr> {
     ServiceEntity::find().all(db).await
 }
+
+pub async fn delete_service(db: &DatabaseConnection, ms_id: Uuid) -> Result<bool, sea_orm::DbErr> {
+    let res = ServiceEntity::delete_by_id(ms_id).exec(db).await?;
+    Ok(res.rows_affected > 0)
+} 
+
